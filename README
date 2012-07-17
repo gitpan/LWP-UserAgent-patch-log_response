@@ -2,10 +2,13 @@ NAME
     LWP::UserAgent::patch::log_response - Patch module for LWP::UserAgent
 
 VERSION
-    version 0.01
+    version 0.02
 
 SYNOPSIS
-     use LWP::UserAgent::patch::log_response;
+     use LWP::UserAgent::patch::log_response
+         -log_response_header => 1, # default 1
+         -log_response_body   => 1, # default 0
+     ;
 
      # now all your LWP HTTP responses are logged
 
@@ -18,6 +21,18 @@ DESCRIPTION
     This module patches LWP::UserAgent (which is used by LWP::Simple,
     WWW::Mechanize, among others) so that HTTP responses are logged using
     Log::Any.
+
+    Response body is logged in category "LWP_Response_Body.*" so it can be
+    separated. For example, to dump response body dumps to directory instead
+    of file:
+
+     use Log::Any::App '$log',
+        -category_level => {LWP_Response_Body => 'off'},
+        -dir            => {
+            path           => "/path/to/dir",
+            level          => 'off',
+            category_level => {LWP_Response_Body => 'trace'},
+        };
 
 FAQ
   Why not subclass?
