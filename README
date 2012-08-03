@@ -2,7 +2,7 @@ NAME
     LWP::UserAgent::patch::log_response - Patch module for LWP::UserAgent
 
 VERSION
-    version 0.02
+    version 0.03
 
 SYNOPSIS
      use LWP::UserAgent::patch::log_response

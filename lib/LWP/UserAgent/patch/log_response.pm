@@ -4,10 +4,10 @@ use 5.010001;
 use strict;
 no warnings;
 
-use Module::Patch 0.07 qw();
+use Module::Patch 0.10 qw();
 use base qw(Module::Patch);
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
 
 our %config;
 
@@ -15,7 +15,7 @@ my $p_simple_request = sub {
     require Log::Any;
 
     my $ctx  = shift;
-    my $orig = shift;
+    my $orig = $ctx->{orig};
     my $resp = $orig->(@_);
 
     my $log = Log::Any->get_logger;
@@ -36,7 +36,7 @@ my $p_simple_request = sub {
 
 sub patch_data {
     return {
-        v => 2,
+        v => 3,
         patches => [
             {
                 action      => 'wrap',
@@ -65,7 +65,7 @@ LWP::UserAgent::patch::log_response - Patch module for LWP::UserAgent
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
 
